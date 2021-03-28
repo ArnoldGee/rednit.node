@@ -1,4 +1,4 @@
-import { EmploymentType } from "../model/EmploymentType";
+import { EmploymentType } from "../types/EmploymentType";
 
 export const employmentTypes: EmploymentType[] = [
   "Part-time",
