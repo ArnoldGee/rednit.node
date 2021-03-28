@@ -1,4 +1,14 @@
-import mongoose from "mongoose";
+import mongoose, { Model, Document } from "mongoose";
+export interface IUser extends Document {
+  name: string;
+  email: string;
+  password: string;
+  created: Date;
+  isPremium: boolean;
+  img?: string;
+  applicantProfile?: string;
+  businessProfile?: string;
+}
 
 const userSchema = new mongoose.Schema({
   name: { type: String, required: true },
@@ -11,4 +21,4 @@ const userSchema = new mongoose.Schema({
   businessProfile: String, // TODO: REPLACE WITH OBJECT ID or subdocument
 });
 
-export const User = mongoose.model("User", userSchema);
+export const User: Model<IUser> = mongoose.model("User", userSchema);
