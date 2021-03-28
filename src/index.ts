@@ -3,6 +3,7 @@ import {config as dotenvConfig} from 'dotenv'
 import userRouter from './routes/user';
 import cors from 'cors';
 import mongoose from "mongoose";
+import constantsRouter from './routes/constants';
 
 dotenvConfig();
 
@@ -24,6 +25,7 @@ app.use(express.json())
 app.use(cors());
 
 app.use('/user', userRouter);
+app.use('/constants', constantsRouter);
 
 app.get('/', (req, res) => {
   res.send("Welcome to the Ultra 85 Rednit program")
