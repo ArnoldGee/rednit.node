@@ -1,7 +1,8 @@
-import { createJwt } from './../util/jwt';
+import { createJwt } from "./../util/jwt";
 import { Router } from "express";
 import { IUser, User } from "../model/User";
 import bcrypt from "bcrypt";
+import { auth } from "../middleware/auth";
 
 const userRouter = Router();
 
@@ -77,7 +78,7 @@ userRouter.get("/", async (req, res) => {
         .json({ msg: `Incorrect password for user ${user.name}` });
     }
 
-    const token = createJwt(user._id)
+    const token = createJwt(user._id);
 
     res.status(200).send({
       msg: "Login successful",
@@ -90,14 +91,58 @@ userRouter.get("/", async (req, res) => {
 });
 
 // User
-userRouter.put("/", (req, res) => {
-  res.send("User update");
+userRouter.put("/", auth, async (req, res) => {
+  try {
+    const { name, email, img } = req.body;
+    if (!name || !email) {
+      return res.status(400).json({
+        msg: "not all fields have been received",
+      });
+    }
+
+    const previousUser = await User.findByIdAndUpdate(req.body._userId, {
+      name,
+      email,
+      img,
+    });
+
+    if (!previousUser) {
+      res.status(400).json({
+        msg:
+          `No user with id ${req.body._userId} was registered in our database, so no user was updated.`,
+      });
+    }
+
+    const user = await User.findById(req.body._userId);
+
+    res.status(200).send({
+      msg: `User ${name} updated`,
+      user,
+    });
+  } catch (err) {
+    res.status(500).json({ msg: "Internal server error: " + err.message });
+  }
 });
 
-userRouter.delete("/", (req, res) => {
-  const token = req.header('x-auth-token');
-  
-  res.send("User delete");
+userRouter.delete("/", auth, async (req, res) => {
+  try {
+    const user = await User.findByIdAndDelete(req.body._userId);
+    if (!user) {
+      res.status(400).json({
+        msg:
+          `No user with id ${req.body._userId} was registered in our database, so no user was deleted.`,
+      });
+    }
+
+    res.status(200).json({
+      msg: `User ${user?.name} successfully deleted`,
+      user,
+    });
+  } catch (err) {
+    res.status(500).json({ msg: "Internal server error: " + err.message });
+  }
 });
+
+// TODO: route to create a new password
 
 export default userRouter;

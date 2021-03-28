@@ -17,8 +17,6 @@ db.once('open', function() {
   console.log("MongoDB connection successful")
 });
 
-console.log(process.env.MONGO_URI)
-
 const app = express();
 
 app.use(express.json())
