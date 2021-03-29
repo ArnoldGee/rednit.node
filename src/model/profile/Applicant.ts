@@ -4,7 +4,7 @@ import { Education, educationSchema } from "../experience/Education";
 import { reviewSchema } from "../experience/Review";
 import {
   WorkExperience,
-  workExperienceSchema,
+  workExperienceSchema
 } from "../experience/WorkExperience";
 import { placeSchema } from "../general/Place";
 import { imgSchema } from "./../general/Img";
@@ -21,6 +21,7 @@ export interface IApplicant extends ProfileBasic {
 }
 
 const applicantSchema = new Schema({
+  user: string,
   profileType: { type: String, required: true },
   place: placeSchema,
   shortDescription: String,

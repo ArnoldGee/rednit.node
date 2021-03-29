@@ -11,6 +11,7 @@ export interface IBusiness extends ProfileBasic {
 }
 
 const businessSchema = new Schema({
+  user: String, // change by populate
   profileType: { type: String, required: true },
   place: placeSchema,
   shortDescription: String,

@@ -1,13 +1,14 @@
 import { Document } from 'mongoose';
+import { Review } from "../experience/Review";
 import { Img } from '../general/Img';
 import { Place } from "../general/Place";
-import { Review } from "../experience/Review";
+import { Sector } from '../Sector';
 import { IApplicant } from "./Applicant";
 import { IBusiness } from "./Business";
-import { Sector } from '../Sector';
 
 export interface ProfileBasic extends Document {
   _id: string;
+  user: string;
   profileType: "APPLICANT" | "BUSINESS";
   place?: Place;
   shortDescription?: string;
