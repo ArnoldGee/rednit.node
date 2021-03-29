@@ -18,7 +18,7 @@ const userSchema = new mongoose.Schema({
   isPremium: { type: Boolean, required: true, default: true },
   created: { type: Date, required: true, default: Date.now },
   img: String,
-  applicantProfile: String, // TODO: REPLACE WITH OBJECT ID or subdocument
+  applicantProfile: String, // TODO: REPLACE WITH OBJECT ID or subdocument so that you can populate
   businessProfile: String, // TODO: REPLACE WITH OBJECT ID or subdocument
 });
 

@@ -1,6 +1,6 @@
-import { EmploymentType } from "./EmploymentType.ts";
-import { Place } from "./general/Place.ts";
-import { Img } from "./general/Img.ts";
+import { EmploymentType } from "./EmploymentType";
+import { Place } from "./general/Place";
+import { Img } from "./general/Img";
 export interface Job {
   _id: string;
   business: string;
