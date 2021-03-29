@@ -17,4 +17,5 @@ export interface Job {
   skills: string[];
   imgs: Img[];
   website?: string;
+  selectedApplicants: string[]
 }

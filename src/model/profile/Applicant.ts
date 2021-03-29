@@ -18,10 +18,11 @@ export interface IApplicant extends ProfileBasic {
   WorkExperiences: WorkExperience[];
   employmentTypes: EmploymentType[];
   skills: string[];
+  selectedJobs: string[];
 }
 
 const applicantSchema = new Schema({
-  user: string,
+  user: String,
   profileType: { type: String, required: true },
   place: placeSchema,
   shortDescription: String,
@@ -36,6 +37,7 @@ const applicantSchema = new Schema({
   workExperiences: [workExperienceSchema],
   employmentTypes: [String],
   skills: [String],
+  selectedJobs: [String], // change by populate
 });
 
 export const Applicant: Model<IApplicant> = mongoose.model(
