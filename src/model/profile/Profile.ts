@@ -1,3 +1,4 @@
+import { IUser } from './User';
 import { Document } from 'mongoose';
 import { Review } from "../experience/Review";
 import { Img } from '../general/Img';
@@ -8,7 +9,7 @@ import { IBusiness } from "./Business";
 
 export interface ProfileBasic extends Document {
   _id: string;
-  user: string;
+  user: string | IUser;
   profileType: "APPLICANT" | "BUSINESS";
   place?: Place;
   shortDescription?: string;

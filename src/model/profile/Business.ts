@@ -11,7 +11,7 @@ export interface IBusiness extends ProfileBasic {
 }
 
 const businessSchema = new Schema({
-  user: String, // change by populate
+  user: { type: Schema.Types.ObjectId, ref: "User" },
   profileType: { type: String, required: true },
   place: placeSchema,
   shortDescription: String,
@@ -21,7 +21,7 @@ const businessSchema = new Schema({
   reviews: [reviewSchema],
 
   name: { type: String, required: true },
-  jobs: [String], // change by populate
+  jobs: [{ type: Schema.Types.ObjectId, ref: "Job" }],
 });
 
 export const Business: Model<IBusiness> = mongoose.model(
