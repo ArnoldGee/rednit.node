@@ -13,6 +13,7 @@ export interface IBusiness extends ProfileBasic {
 const businessSchema = new Schema({
   user: { type: Schema.Types.ObjectId, ref: "User" },
   profileType: { type: String, required: true },
+  slug: { type: String, required: true },
   place: placeSchema,
   shortDescription: String,
   description: String,

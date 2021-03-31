@@ -9,6 +9,7 @@ import { IBusiness } from "./Business";
 
 export interface ProfileBasic extends Document {
   _id: string;
+  slug: string;
   user: string | IUser;
   profileType: "APPLICANT" | "BUSINESS";
   place?: Place;
