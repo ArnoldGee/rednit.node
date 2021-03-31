@@ -1,5 +1,5 @@
 import mongoose, { Model, Schema } from "mongoose";
-import { EmploymentType } from "../EmploymentType";
+import { EmploymentType } from "../constants/EmploymentType";
 import { Education, educationSchema } from "../experience/Education";
 import { reviewSchema } from "../experience/Review";
 import {
@@ -19,6 +19,7 @@ export interface IApplicant extends ProfileBasic {
   employmentTypes: EmploymentType[];
   skills: string[];
   selectedJobs: string[];
+  matchedJobs: string[];
 }
 
 const applicantSchema = new Schema({
@@ -37,7 +38,7 @@ const applicantSchema = new Schema({
   workExperiences: [workExperienceSchema],
   employmentTypes: [String],
   skills: [String],
-  selectedJobs: [String], // change by populate
+  matchedJobs: [String], // change by populate
 });
 
 export const Applicant: Model<IApplicant> = mongoose.model(

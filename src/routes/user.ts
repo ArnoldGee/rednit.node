@@ -1,6 +1,6 @@
 import { createJwt } from "./../util/jwt";
 import { Router } from "express";
-import { IUser, User } from "../model/User";
+import { IUser, User } from "../model/profile/User";
 import bcrypt from "bcrypt";
 import { auth } from "../middleware/auth";
 

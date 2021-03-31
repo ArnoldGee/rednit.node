@@ -2,7 +2,7 @@ import { Document } from 'mongoose';
 import { Review } from "../experience/Review";
 import { Img } from '../general/Img';
 import { Place } from "../general/Place";
-import { Sector } from '../Sector';
+import { Sector } from '../constants/Sector';
 import { IApplicant } from "./Applicant";
 import { IBusiness } from "./Business";
 
