@@ -8,7 +8,7 @@ import { IApplicant } from "./Applicant";
 import { IBusiness } from "./Business";
 
 export interface ProfileBasic extends Document {
-  _id: ObjectId;
+  _id: string;
   slug: string;
   user: string | IUser;
   profileType: "APPLICANT" | "BUSINESS";
