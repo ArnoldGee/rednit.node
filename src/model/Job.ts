@@ -2,12 +2,12 @@ import { Sector } from "./constants/Sector";
 import { EmploymentType } from "./constants/EmploymentType";
 import { Place, placeSchema } from "./general/Place";
 import { Img, imgSchema } from "./general/Img";
-import mongoose, { Document, Model, Schema } from "mongoose";
+import mongoose, { Document, Model, ObjectId, Schema } from "mongoose";
 import { IBusiness } from "./profile/Business";
 import { IApplicant } from "./profile/Applicant";
 
 export interface IJob extends Document {
-  _id: string;
+  _id: ObjectId
   business: string | IBusiness;
   name: string;
   description?: string;

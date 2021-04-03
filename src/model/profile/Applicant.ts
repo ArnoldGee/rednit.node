@@ -16,7 +16,7 @@ export interface IApplicant extends ProfileBasic {
   firstName: string;
   surname?: string;
   education: Education[];
-  WorkExperiences: WorkExperience[];
+  workExperiences: WorkExperience[];
   employmentTypes: EmploymentType[];
   skills: string[];
   selectedJobs: string[] | IJob[];
@@ -25,7 +25,7 @@ export interface IApplicant extends ProfileBasic {
 
 const applicantSchema = new Schema({
   user: { type: Schema.Types.ObjectId, ref: "User" },
-  profileType: { type: String, required: true },
+  profileType: { type: String, required: true, default: 'APPLICANT'},
   slug: { type: String, required: true },
   place: placeSchema,
   shortDescription: String,

@@ -1,5 +1,5 @@
 import { IUser } from './User';
-import { Document } from 'mongoose';
+import { Document, ObjectId } from 'mongoose';
 import { Review } from "../experience/Review";
 import { Img } from '../general/Img';
 import { Place } from "../general/Place";
@@ -8,7 +8,7 @@ import { IApplicant } from "./Applicant";
 import { IBusiness } from "./Business";
 
 export interface ProfileBasic extends Document {
-  _id: string;
+  _id: ObjectId;
   slug: string;
   user: string | IUser;
   profileType: "APPLICANT" | "BUSINESS";
