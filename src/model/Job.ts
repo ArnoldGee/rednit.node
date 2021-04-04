@@ -34,7 +34,7 @@ const jobSchema = new Schema({
   isActive: {type: Boolean, required: true, default: true},
   place: placeSchema,
   sector: { type: String, required: true },
-  creationDate: { type: Date, required: true },
+  creationDate: { type: Date, required: true, default: Date.now },
   deadlineDate: String,
   requirements: String,
   yearsExperience: String,

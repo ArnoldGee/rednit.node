@@ -1,4 +1,4 @@
-import { IUser, User } from "../model/profile/User";
+import { User } from "../model/profile/User";
 import { Router } from "express";
 import { auth } from "../middleware/auth";
 import { Applicant, IApplicant } from "../model/profile/Applicant";
@@ -44,12 +44,13 @@ applicantRouter.post("/", auth, async (req, res) => {
 
     const user = await User.findByIdAndUpdate(req.body._userId, {
       applicantProfile: savedApplicant._id,
-    });
+    }, { new: true });
 
     res.status(200).json({
       msg:
         `Applicant ${applicant.firstName} ${applicant.surname} was added to database`,
       applicant: savedApplicant,
+      user,
     });
   } catch (err) {
     res.status(500).json({ msg: "Internal server error: " + err.message });

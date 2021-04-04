@@ -42,11 +42,12 @@ businessRouter.post("/", auth, async (req, res) => {
 
     const user = await User.findByIdAndUpdate(req.body._userId, {
       businessProfile: savedBusiness._id,
-    });
+    }, { new: true });
 
     res.status(200).json({
       msg: `Business ${business.name} was added to database`,
       business: savedBusiness,
+      user,
     });
   } catch (err) {
     res.status(500).json({ msg: "Internal server error: " + err.message });
@@ -60,7 +61,7 @@ businessRouter.get("/", auth, async (req, res) => {
     if (business) {
       res.status(200).json({
         msg: `Business ${business.name} successfully retrieved`,
-        business
+        business,
       });
     }
 

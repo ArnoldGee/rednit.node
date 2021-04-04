@@ -6,6 +6,7 @@ import mongoose from "mongoose";
 import constantsRouter from "./routes/constants";
 import businessRouter from "./routes/business";
 import applicantRouter from "./routes/applicant";
+import jobRouter from "./routes/job";
 
 dotenvConfig();
 
@@ -31,6 +32,7 @@ app.use(cors());
 app.use("/user", userRouter);
 app.use("/business", businessRouter);
 app.use("/applicant", applicantRouter);
+app.use("/job", jobRouter);
 app.use("/constants", constantsRouter);
 
 // Server test
