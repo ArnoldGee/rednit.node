@@ -41,8 +41,7 @@ jobRouter.post("/", auth, async (req, res) => {
     });
 
     res.status(200).json({
-      msg:
-        `Job ${job.name} was added to database`,
+      msg: `Job ${job.name} was added to database`,
       job: savedJob,
       business,
     });
@@ -51,6 +50,36 @@ jobRouter.post("/", auth, async (req, res) => {
   }
 });
 
+jobRouter.put("/", auth, async (req, res) => {
+  try {
+    const { _userId, _id, ...job }:
+        & Omit<
+          IJob,
+          | "business"
+          | "creationDate"
+          | "selectedApplicants"
+          | "matchedApplicants"
+        >
+        & { _userId: string } = req.body; 
+
+    const { name, place, sector, isRemote } = job;
+    if (!(name && place && sector && isRemote)) {
+      return res.status(400).json({
+        msg: "Required properties are missing: name, place, sector, isRemote",
+      });
+    }
+
+    const newJob = Job.findByIdAndUpdate(_id, job, {new: true})
+
+    res.status(200).json({
+      msg: `Job ${job.name} was added to database`,
+      job: newJob,
+    });
+  } catch (err) {
+    res.status(500).json({ msg: "Internal server error: " + err.message });
+  }
+
+});
 
 
 export default jobRouter;
