@@ -1,3 +1,4 @@
+import { Applicant } from "./../model/profile/Applicant";
 import { Business } from "./../model/profile/Business";
 import { User } from "./../model/profile/User";
 import { Router } from "express";
@@ -34,9 +35,22 @@ jobRouter.post("/", auth, async (req, res) => {
       ...job,
     });
     const savedJob = await newJob.save();
+
+    const business = await Business.findByIdAndUpdate(user?.businessProfile, {
+      "$push": { jobs: savedJob._id },
+    });
+
+    res.status(200).json({
+      msg:
+        `Job ${job.name} was added to database`,
+      job: savedJob,
+      business,
+    });
   } catch (err) {
     res.status(500).json({ msg: "Internal server error: " + err.message });
   }
 });
+
+
 
 export default jobRouter;

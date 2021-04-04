@@ -7,7 +7,7 @@ import { IBusiness } from "./profile/Business";
 import { IApplicant } from "./profile/Applicant";
 
 export interface IJob extends Document {
-  _id: ObjectId
+  _id: string;
   business: string | IBusiness;
   name: string;
   description?: string;
