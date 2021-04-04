@@ -50,7 +50,6 @@ applicantRouter.post("/", auth, async (req, res) => {
       msg:
         `Applicant ${applicant.firstName} ${applicant.surname} was added to database`,
       applicant: savedApplicant,
-      user,
     });
   } catch (err) {
     res.status(500).json({ msg: "Internal server error: " + err.message });
