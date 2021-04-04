@@ -4,7 +4,6 @@ import { Request, Response, NextFunction } from 'express'
 export function auth(req: Request, res: Response, next: NextFunction) {
   try {
     let token = req.header('x-auth-token');
-    console.log(token)
     if (!token)
       return res
         .status(401)
@@ -12,7 +11,6 @@ export function auth(req: Request, res: Response, next: NextFunction) {
     
     // we  check if the user has provided a correct token
     const verified = validateJwt(token)
-    console.log(verified)
     if(!verified) return res
       .status(401)
       .json({msg: 'Token verification failed, auth denied'});

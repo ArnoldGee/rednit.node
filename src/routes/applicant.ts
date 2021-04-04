@@ -1,8 +1,7 @@
-import { User } from "./../model/profile/User";
+import { IUser, User } from "../model/profile/User";
 import { Router } from "express";
 import { auth } from "../middleware/auth";
 import { Applicant, IApplicant } from "../model/profile/Applicant";
-import { ObjectId } from "mongoose";
 
 const applicantRouter = Router();
 
@@ -43,10 +42,15 @@ applicantRouter.post("/", auth, async (req, res) => {
     });
     const savedApplicant = await newApplicant.save();
 
+    const user = await User.findByIdAndUpdate(req.body._userId, {
+      applicantProfile: savedApplicant._id,
+    });
+
     res.status(200).json({
       msg:
         `Applicant ${applicant.firstName} ${applicant.surname} was added to database`,
-      applicant: savedApplicant
+      applicant: savedApplicant,
+      user,
     });
   } catch (err) {
     res.status(500).json({ msg: "Internal server error: " + err.message });
