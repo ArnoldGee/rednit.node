@@ -31,7 +31,7 @@ const jobSchema = new Schema({
   business: { type: Schema.Types.ObjectId, ref: "Business", required: true },
   name: { type: String, required: true },
   description: String,
-  isActive: {type: Boolean, required: true, default: true},
+  isActive: { type: Boolean, required: true, default: true },
   place: placeSchema,
   sector: { type: String, required: true },
   creationDate: { type: Date, required: true, default: Date.now },

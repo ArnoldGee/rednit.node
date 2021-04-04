@@ -1,3 +1,4 @@
+import { IJob } from './../Job';
 import mongoose, { Model, Schema } from "mongoose";
 import { reviewSchema } from "../experience/Review";
 import { imgSchema } from "../general/Img";
@@ -7,7 +8,7 @@ import { ProfileBasic } from "./Profile";
 export interface IBusiness extends ProfileBasic {
   profileType: "BUSINESS";
   name: string;
-  jobs: string[];
+  jobs: string[] | IJob[];
 }
 
 const businessSchema = new Schema({

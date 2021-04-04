@@ -56,7 +56,7 @@ businessRouter.post("/", auth, async (req, res) => {
 
 businessRouter.get("/", auth, async (req, res) => {
   try {
-    const business = await Business.findOne({ user: req.body._userId });
+    const business = await Business.findOne({ user: req.body._userId }).populate("jobs");
 
     if (business) {
       res.status(200).json({
@@ -76,7 +76,7 @@ businessRouter.get("/", auth, async (req, res) => {
 
 businessRouter.get("/slug/:slug", async (req, res) => {
   try {
-    const business = await Business.findOne({ slug: req.params.slug });
+    const business = await Business.findOne({ slug: req.params.slug }).populate("jobs");
 
     if (business) {
       res.status(200).json({

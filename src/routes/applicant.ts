@@ -1,7 +1,9 @@
+import { Job } from "./../model/Job";
 import { User } from "../model/profile/User";
 import { Router } from "express";
 import { auth } from "../middleware/auth";
 import { Applicant, IApplicant } from "../model/profile/Applicant";
+import { stringify } from "node:querystring";
 
 const applicantRouter = Router();
 
@@ -59,7 +61,8 @@ applicantRouter.post("/", auth, async (req, res) => {
 
 applicantRouter.get("/", auth, async (req, res) => {
   try {
-    const applicant = await Applicant.findOne({ user: req.body._userId });
+    const applicant = await Applicant.findOne({ user: req.body._userId })
+      .populate("matchedJobs");
 
     if (applicant) {
       res.status(200).json({
@@ -80,7 +83,8 @@ applicantRouter.get("/", auth, async (req, res) => {
 
 applicantRouter.get("/slug/:slug", async (req, res) => {
   try {
-    const applicant = await Applicant.findOne({ slug: req.params.slug });
+    const applicant = await Applicant.findOne({ slug: req.params.slug })
+      .populate("matchedJobs");
 
     if (applicant) {
       res.status(200).json({
@@ -124,6 +128,45 @@ applicantRouter.put("/", auth, async (req, res) => {
       msg:
         `Applicant update failed: no applicant from user ${req.body._userId} was registered in our database.`,
     });
+  } catch (err) {
+    res.status(500).json({ msg: "Internal server error: " + err.message });
+  }
+});
+
+applicantRouter.patch("/select-job", auth, async (req, res) => {
+  try {
+    const { id } = req.body; // The id of the job
+
+    const job = await Job.findById(id);
+    const selectedApplicants: string[] = job?.selectedApplicants as string[];
+
+    const applicant = await Applicant.findOne({
+      user: req.body._userId,
+    }) as IApplicant;
+
+    if (selectedApplicants.find((jobId: string) => jobId == id)) {
+      await job?.update({
+        $push: { matchedApplicants: applicant._id },
+      });
+
+      await applicant.update({
+        $push: { matchedJobs: id },
+      });
+
+      res.status(200).json({
+        msg: "It's a match!",
+        isMatch: true,
+      });
+    } else {
+      await applicant.update({
+        $push: { selectedJobs: id },
+      });
+
+      res.status(200).json({
+        msg: "Selected job added to list",
+        isMatch: false,
+      });
+    }
   } catch (err) {
     res.status(500).json({ msg: "Internal server error: " + err.message });
   }
